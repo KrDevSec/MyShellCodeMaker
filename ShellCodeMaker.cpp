@@ -7,21 +7,21 @@
 #include "ShellCodeMaker.h"
 
 ShellCodeMaker::ShellCodeMaker(){
-	/* »ı¼ºÀÚ »ç¿ëÀ» Àß¸øÇÑ °æ¿ì(ÀÎÀÚ¸¦ ³Ñ±âÁö ¾ÊÀº °æ¿ì) */
+	/* ìƒì„±ì ì‚¬ìš©ì„ ì˜ëª»í•œ ê²½ìš°(ì¸ìë¥¼ ë„˜ê¸°ì§€ ì•Šì€ ê²½ìš°) */
 	printf(" [!] ShellCodeMaker() Constructor Syntax Error...\n");
 }
 
 ShellCodeMaker::ShellCodeMaker(char* szInputFilePath, char* szOutputFilePath){
-	/* Á¤»ó »ı¼ºÀÚ ¹× ÃÊ±âÈ­ ÀÛ¾÷ */
+	/* ì •ìƒ ìƒì„±ì ë° ì´ˆê¸°í™” ì‘ì—… */
 	FILE *oFile = NULL;
 
 	MyFileProcess *mfc = new MyFileProcess(szInputFilePath);
 		
-	oFile = fopen(szOutputFilePath, "w");			/* ÆÄÀÏÀ» ¾²±â¸ğµå·Î ¿­°í */
+	oFile = fopen(szOutputFilePath, "w");			/* íŒŒì¼ì„ ì“°ê¸°ëª¨ë“œë¡œ ì—´ê³  */
 
-	if ( oFile == NULL )							/* ÆÄÀÏ ¿­±â¿¡ ½ÇÆĞÇÑ °æ¿ì */
+	if ( oFile == NULL )							/* íŒŒì¼ ì—´ê¸°ì— ì‹¤íŒ¨í•œ ê²½ìš° */
 	{
-		printf(" [!] ShellCodeMaker() File Open Failed...\n");		/* ¿À·ù¸¦ ¾Ë¸°´Ù. */
+		printf(" [!] ShellCodeMaker() File Open Failed...\n");		/* ì˜¤ë¥˜ë¥¼ ì•Œë¦°ë‹¤. */
 		return;
 	}
 
@@ -32,13 +32,13 @@ ShellCodeMaker::ShellCodeMaker(char* szInputFilePath, char* szOutputFilePath){
 	}
 
 
-	fprintf(oFile, "\"");							/* Ã³À½ÀÇ " ¸¦ ±â·Ï */
+	fprintf(oFile, "\"");							/* ì²˜ìŒì˜ " ë¥¼ ê¸°ë¡ */
 	
 	char item[3];
 	item[2] = NULL;
 	for(int i=0; i<nSize; i++){
 		item[0] = mfc->GetDataAtIndex(i);
-		if( item[0] == ' ' || item[0] == '\n' || item[0] == '\t' ) /* °ø¹é ¹®ÀÚÀÏ °æ¿ì */
+		if( item[0] == ' ' || item[0] == '\n' || item[0] == '\t' ) /* ê³µë°± ë¬¸ìì¼ ê²½ìš° */
 			continue;
 		else 
 		{
@@ -47,10 +47,12 @@ ShellCodeMaker::ShellCodeMaker(char* szInputFilePath, char* szOutputFilePath){
 		}
 	}
 
-	fprintf(oFile, "\"");							/* ³¡ÀÇ " ¸¦ ±â·Ï */
+	fprintf(oFile, "\"");							/* ëì˜ " ë¥¼ ê¸°ë¡ */
 	
 	fclose(oFile);
 	
 	printf(" [*] Done. \n");
+	
+	delete mfc;
 
 };
